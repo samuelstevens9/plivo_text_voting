@@ -1,0 +1,29 @@
+{
+  "name": "plivo-text-voting",
+  "version": "0.0.1",
+  "description": "Plivo Text SMS Voting",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "engines": {
+    "node": "4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samuelstevens9/plivo_text_voting"
+  },
+  "keywords": [
+    "plivo",
+    "text",
+    "voting"
+  ],
+  "author": "Sam Stevens",
+  "contributors": [
+    "Sam Stevens"
+  ],
+  "license": "MIT"
+}
