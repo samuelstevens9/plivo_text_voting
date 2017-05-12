@@ -2,6 +2,6 @@
   "name": "Text Voting Using Plivo",
   "description": "Text Voting Using Plivo",
   "repository": "https://github.com/samuelstevens9/plivo_text_voting",
-  "logo": "",
-  "keywords": ["text voting", "sms","voting","plivo"]
+  "logo": "https://s3.amazonaws.com/plivo_blog_uploads/static_assets/images/press/plivo-color-icon-dark1-large.png",
+  "keywords": ["text voting","sms","voting","plivo"]
 }
