@@ -2,5 +2,12 @@
 
 Simple SMS voting using [Plivo](https://www.plivo.com/)
 
-# Deploy to:
+## Receive SMS
+
+https://www.plivo.com/docs/getting-started/receive-an-sms/
+
+`/receive_sms/`
+
+
+## Deploy to:
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
