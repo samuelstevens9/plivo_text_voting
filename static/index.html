@@ -1,12 +1,119 @@
-<!DOCTYPE html> 
-<html lang="en">
-<head>
-<title>Text Voting</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <h1>Text Voting</h1>
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BIZZCOM Text Voting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/3.9.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/3.9.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/3.9.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/3.9.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/3.9.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>Text Voting</h2>
+      <h1>BIZZCOM</h1>
+      <div id="android_sms_links" style="display:none;">
+        <a href="sms:+18122979339?body=Nudget">Nudget</a>
+      </div>
+      <div id="ios_sms_links" style="display:none;">
+        <a href="sms:+18122979339&body=Nudget">Nudget</a>
+      </div>
+      <div id="sms_links" style="display:none;">
+        <a href="#">Text "Nudget" to 1-812-297-9339</a>
+      </div>
+      <div id="messages"></div>
+    </div>
+    <p id="load">Firebase SDK Loading&hellip;</p>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('data', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        console.log(getMobileOperatingSystem());
+        if(getMobileOperatingSystem() == "Android"){
+          document.getElementById("android_sms_links").style.display="block";
+        }else if(getMobileOperatingSystem() == "iOS"){
+          document.getElementById("ios_sms_links").style.display="block";
+        }else{
+          document.getElementById("sms_links").style.display="block";
+        }
+        try {
+          let app = firebase.app();
+          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+          
+          var starCountRef = firebase.database().ref('messages');
+            starCountRef.on('value', function(snapshot) {
+              console.log(snapshot.val());
+              var messages = snapshot.val();
+              var msg_html = ""
+              for(var k in messages){
+                msg_html += "<p>"+messages[k].text+"</p>";
+              }
+              document.getElementById('messages').innerHTML = msg_html;
+          });
+        } catch (e) {
+          console.error(e);
+          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+        }
+        
+        
+      });
+      
+     /**
+      * Determine the mobile operating system.
+      * This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'.
+      *
+      * @returns {String}
+      */
+     function getMobileOperatingSystem() {
+       var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+           // Windows Phone must come first because its UA also contains "Android"
+         if (/windows phone/i.test(userAgent)) {
+             return "Windows Phone";
+         }
+
+         if (/android/i.test(userAgent)) {
+             return "Android";
+         }
+
+         // iOS detection from: http://stackoverflow.com/a/9039885/177710
+         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+             return "iOS";
+         }
+
+         return "unknown";
+     }
+    </script>
+  </body>
 </html>
