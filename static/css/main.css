@@ -16,5 +16,5 @@ body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvet
 .vote-team{display: -webkit-flex; display: flex; margin:4px 0;}
 .vote-team-name{width:30%;padding:4px;text-align:right;}
 .vote-team-votes{width:100%;}
-.votes{background:#039be5;color:#FFF;width:0;padding:4px;}
+.votes{background:#039be5;color:#FFF;width:9px;padding:4px;}
 .votes span{}
